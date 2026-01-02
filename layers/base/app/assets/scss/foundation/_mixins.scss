@@ -3,10 +3,19 @@
 /// @group foundation
 ///
 
+@use "sass:map";
+@use "variables" as *;
+
 /// Responsive Breakpoint Manager
 /// @param {String} $breakpoint - Breakpoint name
 @mixin media-up($breakpoint) {
-  @content;
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @error "Invalid breakpoint: #{$breakpoint}.";
+  }
 }
 
 /// Flexbox Center
