@@ -1,10 +1,37 @@
-# Nuxt Minimal Starter
+# Nuxt ミニマルスターター
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+詳しくは [Nuxt ドキュメント](https://nuxt.com/docs/getting-started/introduction) をご覧ください。
 
-## Setup
+## Dockerを使用した開発環境の立ち上げ（推奨）
 
-Make sure to install dependencies:
+Dockerを使用することで、簡単に開発環境を立ち上げることができます。
+
+### 前提条件
+
+*   Docker Desktop または同等のDocker環境がインストールされていること。
+
+### 起動方法
+
+以下のコマンドを実行して、開発サーバーを起動します。
+
+```bash
+docker compose up
+```
+
+起動後、ブラウザで `http://localhost:3000` にアクセスしてください。
+ソースコードの変更は自動的に反映されます（ホットリロード）。
+
+停止するには `Ctrl+C` を押すか、別ターミナルで以下を実行します。
+
+```bash
+docker compose down
+```
+
+---
+
+## ローカルでのセットアップ（Dockerを使用しない場合）
+
+依存関係をインストールしてください：
 
 ```bash
 # npm
@@ -20,9 +47,9 @@ yarn install
 bun install
 ```
 
-## Development Server
+### 開発サーバー
 
-Start the development server on `http://localhost:3000`:
+`http://localhost:3000` で開発サーバーを起動します：
 
 ```bash
 # npm
@@ -38,9 +65,9 @@ yarn dev
 bun run dev
 ```
 
-## Production
+### 本番ビルド
 
-Build the application for production:
+本番用にアプリケーションをビルドします：
 
 ```bash
 # npm
@@ -56,7 +83,7 @@ yarn build
 bun run build
 ```
 
-Locally preview production build:
+本番ビルドをローカルでプレビューします：
 
 ```bash
 # npm
@@ -72,4 +99,4 @@ yarn preview
 bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+詳しくは [デプロイメントのドキュメント](https://nuxt.com/docs/getting-started/deployment) をご確認ください。
