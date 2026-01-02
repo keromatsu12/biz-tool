@@ -43,3 +43,22 @@ Conventional Commits に従い、以下のフォーマットを使用してく�
 - PR のタイトルはコミットメッセージと同様のフォーマット (`<type>: <subject>`) を推奨します。
 - PR 作成時に適切なマージ先（通常は `develop`）を選択してください。
 - PR のタイトルと説明は日本語で記述してください。
+
+## 2. 開発環境と技術スタック
+
+### 2.1. 技術スタック
+
+- **Framework:** Nuxt 4.2
+- **Library:** Vue 3.5
+- **Runtime:** Node.js 22
+- **Language:** TypeScript
+
+### 2.2. 開発環境
+
+Docker を使用したコンテナ環境で開発を行います。
+
+**起動手順:**
+
+```bash
+docker compose up
+```
