@@ -17,7 +17,7 @@ export default defineNuxtConfig({
 
   // グローバルスタイルの読み込み
   // レイヤー内の相対パスで指定
-  css: ["./app/assets/scss/main.scss"],
+  css: ["#base/assets/scss/main.scss"],
 
   vite: {
     css: {
@@ -27,7 +27,7 @@ export default defineNuxtConfig({
         scss: {
           // グローバル変数の注入
           // foundation と tokens を全ファイルで使えるようにする
-          additionalData: '@use "#base/assets/scss/foundation" as *; @use "#base/assets/scss/tokens" as *;',
+          // additionalData: '@use "#base/assets/scss/foundation" as *; @use "#base/assets/scss/tokens" as *;',
           // sass-embedded を使用
           api: 'modern-compiler',
         },

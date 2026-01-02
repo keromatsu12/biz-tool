@@ -3,12 +3,25 @@
 /// @group foundation
 ///
 
-// Color Palette (Primitive)
-$color-primary: #3498db !default;
+// Color Palette
+$color-primary: #4169E1 !default; // Royal Blue
 $color-secondary: #2ecc71 !default;
 $color-text: #333333 !default;
 $color-background: #ffffff !default;
+$color-border: #e0e0e0 !default;
+$color-sidebar-bg: #f8f9fa !default;
 
 // Typography
 $font-family-base: 'Helvetica Neue', Arial, sans-serif !default;
 $font-size-base: 16px !default;
+
+// Spacing
+$spacing-unit: 8px !default;
+
+// Breakpoints
+$breakpoints: (
+  'sm': 576px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1200px
+) !default;

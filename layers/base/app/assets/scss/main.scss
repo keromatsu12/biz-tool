@@ -1,15 +1,46 @@
 // Global Styles Entry Point
 
+// Import Foundation (Variables, Mixins, Functions) - using 'as *' for global access within this scope if needed,
+// but typically they are @used where needed. However, since this is the main entry,
+// we forward or use them to generate global CSS if they produced any (which they don't, usually).
+
+// Note: In modern Sass, we should import these in each file that needs them.
+// However, for global styles, we might need some resets.
+
+@use 'foundation/variables';
+@use 'foundation/mixins';
+
 // Import Tokens (CSS Variables)
 @use 'tokens';
 
 // Import Utilities (Helper Classes)
 @use 'utilities';
 
-// Reset or Base styles can go here
-body {
+:root {
+  --color-primary: #{variables.$color-primary};
+  --color-text: #{variables.$color-text};
+  --color-background: #{variables.$color-background};
+  --header-height: 64px;
+  --sidebar-width: 280px;
+}
+
+// Reset or Base styles
+html, body {
   margin: 0;
-  font-family: var(--font-family-base, sans-serif);
-  color: #333;
-  background-color: #fff;
+  padding: 0;
+  font-family: variables.$font-family-base;
+  color: variables.$color-text;
+  background-color: variables.$color-background;
+  height: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+// Simple Utility classes for layout if not in utilities
+.l-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
