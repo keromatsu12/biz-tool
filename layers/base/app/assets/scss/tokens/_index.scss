@@ -1,0 +1,12 @@
+@use '../foundation' as *;
+
+///
+/// Tokens: Design Tokens
+/// @group tokens
+///
+
+:root {
+  --color-primary: #{$color-primary};
+  --color-secondary: #{$color-secondary};
+  --font-family-base: #{$font-family-base};
+}

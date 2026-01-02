@@ -1,0 +1,17 @@
+///
+/// Foundation: Mixins
+/// @group foundation
+///
+
+/// Responsive Breakpoint Manager
+/// @param {String} $breakpoint - Breakpoint name
+@mixin media-up($breakpoint) {
+  @content;
+}
+
+/// Flexbox Center
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
