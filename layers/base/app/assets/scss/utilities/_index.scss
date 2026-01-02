@@ -1,0 +1,14 @@
+@use '../foundation' as *;
+
+///
+/// Utilities: Helper Classes
+/// @group utilities
+///
+
+.u-flex-center {
+  @include flex-center;
+}
+
+.u-text-center {
+  text-align: center;
+}

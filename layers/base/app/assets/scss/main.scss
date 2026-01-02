@@ -1,0 +1,15 @@
+// Global Styles Entry Point
+
+// Import Tokens (CSS Variables)
+@use 'tokens';
+
+// Import Utilities (Helper Classes)
+@use 'utilities';
+
+// Reset or Base styles can go here
+body {
+  margin: 0;
+  font-family: var(--font-family-base, sans-serif);
+  color: #333;
+  background-color: #fff;
+}

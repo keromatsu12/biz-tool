@@ -1,0 +1,11 @@
+///
+/// Foundation: Functions
+/// @group foundation
+///
+
+/// Convert pixels to rem
+/// @param {Number} $px - Value in pixels
+/// @return {Number} Value in rem
+@function rem($px) {
+  @return calc($px / 16) * 1rem;
+}
