@@ -1,12 +1,15 @@
 <template>
   <footer class="c-footer">
     <div class="c-footer__inner">
-      <p class="c-footer__copyright">&copy; 2025 BizTool. All rights reserved.</p>
+      <p class="c-footer__copyright">
+        &copy; 2025 BizTool. All rights reserved.
+      </p>
     </div>
   </footer>
 </template>
 
 <style lang="scss" scoped>
+@use "sass:color";
 @use "../assets/scss/foundation/variables" as *;
 
 .c-footer {
@@ -23,7 +26,7 @@
   &__copyright {
     margin: 0;
     font-size: 0.875rem;
-    color: lighten($color-text, 20%);
+    color: color.adjust($color-text, $lightness: 20%);
   }
 }
 </style>
