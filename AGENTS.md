@@ -48,8 +48,8 @@ Conventional Commits に従い、以下のフォーマットを使用してく�
 
 ### 2.1. 技術スタック
 
-- **Framework:** Nuxt 4
-- **Library:** Vue 3
+- **Framework:** Nuxt 4.2
+- **Library:** Vue 3.5
 - **Runtime:** Node.js 22
 - **Language:** TypeScript
 
