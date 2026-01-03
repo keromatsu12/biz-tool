@@ -98,6 +98,14 @@ docker compose up
     3. **コンポーネント層 (Components):** 基礎層とトークン層を参照
     4. **ページ層 (Pages):** 全ての層を参照可能
 
+- **BEM記法とプレフィックス:**
+    - クラス名はBEM記法 (`Block__Element--Modifier`) を採用する。
+    - 役割を明確にするため、以下のプレフィックスを付与する。
+        - `l-`: Layout (レイアウト) - 例: `l-app`, `l-main`
+        - `c-`: Component (コンポーネント) - 例: `c-header`, `c-btn`
+        - `p-`: Page (ページ固有) - 例: `p-home`, `p-login`
+        - `u-`: Utility (ユーティリティ) - 例: `u-text-center`
+
 ### 3.5. 保守性と連携
 
 - **ドキュメント化:** 変数やMixinにはSassDoc形式のコメントを付与し、スタイルガイドを自動生成できる状態に保つ。
