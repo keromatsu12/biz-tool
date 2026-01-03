@@ -111,3 +111,28 @@ docker compose up
 - **ドキュメント化:** 変数やMixinにはSassDoc形式のコメントを付与し、スタイルガイドを自動生成できる状態に保つ。
 - **デザインシステム連携:** 必要に応じてデザイントークン（JSON）からSCSS変数を自動生成するスクリプトを活用する。
 - **JSとの連携:** スタイルとロジックの一貫性を保つため、`:export` 機能を使用してSCSS変数をJavaScriptから参照可能にする。
+
+## 4. アーキテクチャ設計思想
+
+### 4.1. Container/Presentational パターン
+
+本プロジェクトでは、コンポーネントの役割を明確に分離するため、Container/Presentational パターンを設計思想として採用し、厳格に適用します。
+
+#### 4.1.1. Container Component
+
+- **役割:** ビジネスロジック、データ取得（API通信）、状態管理（Storeへのアクセスなど）を担当します。
+- **責務:**
+    - Presentational Component に Props 経由でデータを渡す。
+    - Presentational Component からのイベントを受け取り、処理を行う。
+    - 具体的な DOM 構造やスタイルは極力持たない。
+- **命名規則:**
+    - コンポーネント名の末尾に `Container` を付与する（例: `UserListContainer.vue`）。
+
+#### 4.1.2. Presentational Component
+
+- **役割:** UI の見た目とインタラクションのみを担当します。
+- **責務:**
+    - データはすべて Props 経由で受け取る。
+    - 自身の状態（state）は UI に関するもの（アコーディオンの開閉など）に限定する。
+    - API 通信やビジネスロジックは持たない。
+    - スタイル（CSS/SCSS）を持つ。
