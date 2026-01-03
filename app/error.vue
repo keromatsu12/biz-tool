@@ -7,7 +7,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div>
+  <div class="p-error">
     <h1>An error occurred</h1>
     <p>{{ error?.statusCode }} - {{ error?.message }}</p>
   </div>
