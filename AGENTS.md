@@ -145,7 +145,6 @@ docker compose up
 
 - **Test Runner:** Vitest (Frontend)
 - **Mocking:** Happy DOM (UI), MSW (API Mocking)
-- **Coverage:** v8 (目標: C0 80%以上など)
 
 ### 5.1. Unit / Component Test (Vitest)
 
@@ -215,3 +214,14 @@ const adminUser = UserBuilder.default()
 | 正常系 (Normal) | 基本機能 | 正しい入力で期待通りに保存・遷移ができるか。 |
 | 準正常系 (Semi-normal) | バリデーション等 | 境界値（文字数制限等）、重複エラー、権限不足のメッセージ表示。 |
 | 異常系 (Abnormal) | システムエラー | API 500 エラー、タイムアウト、オフライン時のフォールバック処理。 |
+
+### 5.7. カバレッジ戦略
+
+継続的な品質維持のため、以下のカバレッジ指標を目標とします。ただし、「数値の達成」そのものを目的とせず、重要なロジックの網羅を最優先してください。
+
+- **全体目標:** C0 (命令網羅) 80% 以上
+- **重点目標:**
+    - `utils/`, `composables/`, `server/utils/` 内のロジックは **C1 (分岐網羅) 90% 以上** を必須とする。
+    - `components/base/` などの共通コンポーネントは **C0 100%** を目指す。
+- **除外対象:**
+    - 自動生成コード、外部ライブラリのラッパー、定数定義ファイル、型定義ファイル、`nuxt.config.ts` 等。
