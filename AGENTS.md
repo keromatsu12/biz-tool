@@ -136,3 +136,92 @@ docker compose up
     - 自身の状態（state）は UI に関するもの（アコーディオンの開閉など）に限定する。
     - API 通信やビジネスロジックは持たない。
     - スタイル（CSS/SCSS）を持つ。
+
+## 5. テスト戦略
+
+開発効率を維持しつつ、リファクタリング耐性の高いコードベースを維持するため、以下の戦略でテストを運用します。
+
+使用するライブラリと役割を明記します。
+
+- **Test Runner:** Vitest (Frontend)
+- **Mocking:** Happy DOM (UI), MSW (API Mocking)
+
+### 5.1. Unit / Component Test (Vitest)
+
+ロジックの正当性と、UI コンポーネントの振る舞いを検証します。
+
+- **Base コンポーネント:** すべての props による表示変化と emit の発火条件を網羅する。
+- **Composables / Utils:** 業務ロジックを含む共通関数。副作用がある場合はモック化して純粋なロジックを検証する。
+- **Stores (Pinia):** 複雑な State 更新ロジックや、Action による外部 API 呼び出しフロー。
+
+### 5.2. E2E / Visual Regression Test (Playwright)
+
+ブラウザ実機に近い環境でのユーザー体験を担保します。
+
+- **Visual Regression Test (VRT):** デザイナーによる CSS 変更時、意図しないレイアウト崩れを防ぐ。Playwright の toHaveScreenshot() を活用。
+- **シナリオテスト:** 「ログイン → 一覧表示 → 詳細編集 → 保存」といった、クリティカルな業務フローの整合性を担保。
+
+### 5.3. テストファイルの配置
+
+ソースコードの可読性を保つため、ソースファイルと同階層には置かず、各レイヤー内の tests ディレクトリにミラーリングして配置します。
+
+**構成例:**
+
+- ソース: `layers/base/components/base/SideMenu.vue`
+- テスト: `layers/base/tests/components/base/SideMenu.spec.ts`
+
+### 5.4. AAA パターン (Arrange-Act-Assert)
+
+テストコードの構造を統一し、誰が見ても「何をテストしているか」を瞬時に理解できるようにします。
+
+```typescript
+test('ユーザーが削除ボタンをクリックすると削除イベントが発火する', async () => {
+  // --- Arrange (準備) ---
+  const user = UserBuilder.default().withName('Test User').build();
+  // Nuxt 4/3 では mountSuspended を使用して非同期コンポーネントに対応
+  const wrapper = await mountSuspended(UserCard, { props: { user } });
+
+  // --- Act (実行) ---
+  await wrapper.find('.c-button--delete').trigger('click');
+
+  // --- Assert (検証) ---
+  expect(wrapper.emitted('delete')).toBeTruthy();
+  expect(wrapper.emitted('delete')![0]).toEqual([user.id]);
+});
+```
+
+### 5.5. Builder パターンによるテストデータ生成
+
+テストデータの「設定（Setup）」を簡略化し、テストの意図を際立たせるため Builder パターンを採用します。
+
+- **ルール:** `EntityNameBuilder` クラスを作成し、`default()` メソッドで有効な最小限のデータを生成する。
+- **メリット:** 必須項目が増えた際も Builder の修正のみで全テストを通せるため、仕様変更に強い。
+
+```typescript
+// 使用例
+const adminUser = UserBuilder.default()
+  .withId(100)
+  .withRole('admin') // 必要な差分（テストに関係ある項目）のみを指定
+  .build();
+```
+
+### 5.6. テストケースの分類
+
+`describe` ブロックを用いて、以下の 3 観点でテストを整理します。
+
+| 分類 | 観点 | 内容の例 |
+| :--- | :--- | :--- |
+| 正常系 (Normal) | 基本機能 | 正しい入力で期待通りに保存・遷移ができるか。 |
+| 準正常系 (Semi-normal) | バリデーション等 | 境界値（文字数制限等）、重複エラー、権限不足のメッセージ表示。 |
+| 異常系 (Abnormal) | システムエラー | API 500 エラー、タイムアウト、オフライン時のフォールバック処理。 |
+
+### 5.7. カバレッジ戦略
+
+継続的な品質維持のため、以下のカバレッジ指標を目標とします。ただし、「数値の達成」そのものを目的とせず、重要なロジックの網羅を最優先してください。
+
+- **全体目標:** C0 (命令網羅) 80% 以上
+- **重点目標:**
+    - `utils/`, `composables/`, `server/utils/` 内のロジックは **C1 (分岐網羅) 90% 以上** を必須とする。
+    - `components/base/` などの共通コンポーネントは **C0 100%** を目指す。
+- **除外対象:**
+    - 自動生成コード、外部ライブラリのラッパー、定数定義ファイル、型定義ファイル、`nuxt.config.ts` 等。
