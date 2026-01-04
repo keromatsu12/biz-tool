@@ -141,6 +141,12 @@ docker compose up
 
 開発効率を維持しつつ、リファクタリング耐性の高いコードベースを維持するため、以下の戦略でテストを運用します。
 
+使用するライブラリと役割を明記します。
+
+- **Test Runner:** Vitest (Frontend)
+- **Mocking:** Happy DOM (UI), MSW (API Mocking)
+- **Coverage:** v8 (目標: C0 80%以上など)
+
 ### 5.1. Unit / Component Test (Vitest)
 
 ロジックの正当性と、UI コンポーネントの振る舞いを検証します。
