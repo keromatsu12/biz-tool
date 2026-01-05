@@ -27,13 +27,8 @@ const { mockNavigationData, toggleAccordionMock, closeDrawerMock } = vi.hoisted(
   }
 })
 
-vi.mock('../../../app/composables/useNavigation', async (importOriginal) => {
-  const { ref } = await importOriginal<typeof import('vue')>()
-  // Since we are mocking a composable, we don't necessarily need the original module,
-  // but we need 'vue' to create refs.
-  // However, importOriginal gives the module being mocked.
-  // We need to import 'vue' separately.
-  // But inside mock, we can just use importActual for vue.
+vi.mock('../../../app/composables/useNavigation', async () => {
+  // We need to import 'vue' separately to use ref inside the mock
   const { ref: vueRef } = await vi.importActual<typeof import('vue')>('vue')
 
   return {
