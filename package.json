@@ -35,5 +35,8 @@
     "sass-embedded": "^1.97.1",
     "storybook": "^8.6.15",
     "vitest": "^3.2.4"
+  },
+  "overrides": {
+    "vite": "7.3.0"
   }
 }
