@@ -14,6 +14,12 @@ export default defineVitestConfig({
         'layers/base/app/**/*.test.ts'
       ],
       reporter: ['text', 'json', 'html'],
+      thresholds: {
+        statements: 80,
+        'layers/base/app/composables/**': {
+          branches: 90
+        }
+      }
     }
   }
 })
