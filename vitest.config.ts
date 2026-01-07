@@ -11,7 +11,8 @@ export default defineVitestConfig({
       exclude: [
         'layers/base/app/**/*.d.ts',
         'layers/base/app/**/*.spec.ts',
-        'layers/base/app/**/*.test.ts'
+        'layers/base/app/**/*.test.ts',
+        'layers/base/app/**/*.stories.ts'
       ],
       reporter: ['text', 'json', 'html'],
       thresholds: {
