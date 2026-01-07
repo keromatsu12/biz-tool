@@ -161,7 +161,19 @@ docker compose up
 - **Visual Regression Test (VRT):** デザイナーによる CSS 変更時、意図しないレイアウト崩れを防ぐ。Playwright の toHaveScreenshot() を活用。
 - **シナリオテスト:** 「ログイン → 一覧表示 → 詳細編集 → 保存」といった、クリティカルな業務フローの整合性を担保。
 
-### 5.3. テストファイルの配置
+### 5.3. UIパーツの実装とディレクトリ構成
+
+再利用可能なUIパーツ（Button, TextBoxなど）は、以下のルールで作成します。
+
+- **ディレクトリ構成:** コンポーネントごとにディレクトリを作成し、その中にVueファイルとStorybookファイルを配置する。
+    - 例: `layers/base/app/components/Button/Button.vue`
+    - 例: `layers/base/app/components/Button/Button.stories.ts`
+- **Storybook:**
+    - UIパーツの実装とセットでStorybookを作成する。
+    - **JSDoc:** `meta` や `story` には必ず JSDoc (`/** ... */`) を記述し、ドキュメントとして機能させる。
+    - **VRT:** Visual Regression Test での状態網羅を意識し、Default, Disabled, Error, LongText などのバリエーションを Story として定義する。
+
+### 5.4. テストファイルの配置
 
 ソースコードの可読性を保つため、ソースファイルと同階層には置かず、各レイヤー内の tests ディレクトリにミラーリングして配置します。
 
@@ -170,7 +182,7 @@ docker compose up
 - ソース: `layers/base/components/base/SideMenu.vue`
 - テスト: `layers/base/tests/components/base/SideMenu.spec.ts`
 
-### 5.4. AAA パターン (Arrange-Act-Assert)
+### 5.5. AAA パターン (Arrange-Act-Assert)
 
 テストコードの構造を統一し、誰が見ても「何をテストしているか」を瞬時に理解できるようにします。
 
@@ -190,7 +202,7 @@ test('ユーザーが削除ボタンをクリックすると削除イベント�
 });
 ```
 
-### 5.5. Builder パターンによるテストデータ生成
+### 5.6. Builder パターンによるテストデータ生成
 
 テストデータの「設定（Setup）」を簡略化し、テストの意図を際立たせるため Builder パターンを採用します。
 
@@ -205,7 +217,7 @@ const adminUser = UserBuilder.default()
   .build();
 ```
 
-### 5.6. テストケースの分類
+### 5.7. テストケースの分類
 
 `describe` ブロックを用いて、以下の 3 観点でテストを整理します。
 
@@ -215,7 +227,7 @@ const adminUser = UserBuilder.default()
 | 準正常系 (Semi-normal) | バリデーション等 | 境界値（文字数制限等）、重複エラー、権限不足のメッセージ表示。 |
 | 異常系 (Abnormal) | システムエラー | API 500 エラー、タイムアウト、オフライン時のフォールバック処理。 |
 
-### 5.7. カバレッジ戦略
+### 5.8. カバレッジ戦略
 
 継続的な品質維持のため、以下のカバレッジ指標を目標とします。ただし、「数値の達成」そのものを目的とせず、重要なロジックの網羅を最優先してください。
 

@@ -19,6 +19,7 @@ const config: StorybookConfig = {
   },
   async viteFinal(config) {
     return mergeConfig(config, {
+      plugins: [vue()],
       resolve: {
         alias: {
           // #base が layers/base を指すように設定
